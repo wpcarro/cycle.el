@@ -31,4 +31,9 @@ cycle.overrideAttrs (_old: {
     ${emacs}/bin/emacs -batch \
       -l ert -l ${./tests.el} -f ert-run-tests-batch-and-exit
   '';
+  passthru.meta.ci.extraSteps.github = depot.tools.releases.filteredGitPush {
+    filter = ":/users/wpcarro/emacs/pkgs/cycle";
+    remote = "git@github.com:wpcarro/cycle.el.git";
+    ref = "refs/heads/main";
+  };
 })
