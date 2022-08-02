@@ -12,7 +12,6 @@ let
             dash
           ]) ++
           (with depot.users.wpcarro.emacs.pkgs; [
-            list
             maybe
             struct
           ]);

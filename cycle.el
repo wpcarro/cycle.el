@@ -16,7 +16,6 @@
 
 (require 'dash)
 (require 'maybe)
-(require 'list)
 (require 'struct)
 (require 'cl-lib)
 
@@ -164,9 +163,7 @@ If X is the currently focused value, after it's deleted, current-index will be
 
 (defun cycle-contains? (x xs)
   "Return t if cycle, XS, has member X."
-  (->> xs
-       cycle-xs
-       (list-contains? x)))
+  (maybe-some? (-contains? (cycle-xs xs) x)))
 
 (defun cycle-empty? (xs)
   "Return t if cycle XS has no elements."
