@@ -33,6 +33,6 @@ cycle.overrideAttrs (_old: {
   passthru.meta.ci.extraSteps.github = depot.tools.releases.filteredGitPush {
     filter = ":/users/wpcarro/emacs/pkgs/cycle";
     remote = "git@github.com:wpcarro/cycle.el.git";
-    ref = "refs/heads/main";
+    ref = "refs/heads/canon";
   };
 })
