@@ -15,7 +15,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'dash)
-(require 'maybe)
 (require 'struct)
 (require 'cl-lib)
 
@@ -55,19 +54,15 @@
 (defun cycle-previous-focus (cycle)
   "Return the previously focused entry in CYCLE."
   (let ((i (cycle-previous-index cycle)))
-    (if (maybe-some? i)
-        (nth i (cycle-xs cycle))
-      nil)))
+    (when i (nth i (cycle-xs cycle)))))
 
 (defun cycle-focus-previous! (xs)
   "Jump to the item in XS that was most recently focused; return the cycle.
 This will error when previous-index is nil.  This function mutates the
 underlying struct."
   (let ((i (cycle-previous-index xs)))
-    (if (maybe-some? i)
-        (progn
-          (cycle-jump! i xs)
-          (cycle-current xs))
+    (if i
+        (progn (cycle-jump! i xs) (cycle-current xs))
       (error "Cannot focus the previous element since cycle-previous-index is nil"))))
 
 (defun cycle-next! (xs)
@@ -163,7 +158,7 @@ If X is the currently focused value, after it's deleted, current-index will be
 
 (defun cycle-contains? (x xs)
   "Return t if cycle, XS, has member X."
-  (maybe-some? (-contains? (cycle-xs xs) x)))
+  (not (null (-contains? (cycle-xs xs) x))))
 
 (defun cycle-empty? (xs)
   "Return t if cycle XS has no elements."
@@ -171,7 +166,7 @@ If X is the currently focused value, after it's deleted, current-index will be
 
 (defun cycle-focused? (xs)
   "Return t if cycle XS has a non-nil value for current-index."
-  (maybe-some? (cycle-current-index xs)))
+  (not (null (cycle-current-index xs))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper Functions

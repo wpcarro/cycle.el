@@ -12,7 +12,6 @@ let
             dash
           ]) ++
           (with depot.users.wpcarro.emacs.pkgs; [
-            maybe
             struct
           ]);
       })
@@ -20,7 +19,6 @@ let
 
   emacs = (pkgs.emacsPackagesFor pkgs.emacs28).emacsWithPackages (epkgs: [
     epkgs.dash
-    depot.users.wpcarro.emacs.pkgs.maybe
     cycle
   ]);
 in

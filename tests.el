@@ -5,7 +5,6 @@
 (require 'ert)
 (require 'cycle)
 (require 'dash)
-(require 'maybe)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tests
@@ -15,7 +14,7 @@
 
 (ert-deftest cycle-initializes-properly ()
   (should (= 3 (cycle-count xs)))
-  (should (maybe-nil? (cycle-previous-focus xs)))
+  (should (null (cycle-previous-focus xs)))
   (should (cycle-contains? 1 xs))
   (should (cycle-contains? 2 xs))
   (should (cycle-contains? 3 xs)))
